@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #d4d5e6;
+            padding: 10px;
+        }
+
+        .top .middle .down {
+            width: 100%;
+            background-color: pink;
+        }
+
+        .top .middle .down img {
+            object-fit: contain;
+        }
+
+        .top {
+            margin: 10px 0;
+            border-radius: 10px;
+            height: 166px;
+            background: url(./姓名.png) no-repeat;
+            background-size: 100% 100%;
+            /* 语法: box-shadow: 水平偏移 垂直偏移 模糊半径 扩散半径 颜色 */
+            box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .middle {
+            border: 2px solid #fff;
+            margin: 20px 0;
+            border-radius: 10px;
+            height: 352px;
+            background: url(./1.jpg) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .down {
+            text-align: center;
+            width: 100%;
+            background-color: #e4e1e2;
+            border-radius: 20px;
+        }
+
+        .down p {
+            padding-top: 10px;
+            font-size: 25px;
+        }
+
+        .down .date {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .down .time {
+            padding-bottom: 20px;
+            color: #d93042;
+            font-size: 70px;
+        }
+    </style>
+</head>
+
+<body onload="startTime()">
+    <div class="top">
+        <!-- <img src="姓名.png" alt=""> -->
+    </div>
+    <div class="middle">
+        <!-- <img class="renzheng" src="1.jpg" alt=""> -->
+    </div>
+    <div class="down">
+        <p>当前时间</p>
+        <div class="date">2024年10月16日</div>
+        <div id="clock" class="time"></div>
+    </div>
+</body>
+<script>
+    //切换
+    var num = 1;
+    function changeImg() {
+        let image = document.querySelector('.middle');
+        // 设置新的背景图片
+        image.style.backgroundImage = `url('./${num}.jpg')`;
+        num++;
+        if (num > 2) {
+            num = 1;
+        }
+    }
+    setInterval(changeImg, 200);
+
+    //  时间
+    function startTime() {
+        const today = new Date();
+        let h = today.getHours();
+        let m = today.getMinutes();
+        let s = today.getSeconds();
+        let ms = new Date().getTime();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        document.querySelector('.date').innerHTML = `${year}年${month}月${day}日`
+        let num = 0
+        // add a zero in front of numbers<10
+        h = checkTime(h);
+        m = checkTime(m);
+        s = checkTime(s);
+        ms = checkTime(ms)
+        // console.log(ms);
+        if (s % 2 == 0) {
+            document.querySelector('.time').innerHTML =
+                h + ':' + m + ':' + s + ":" + 1;
+            num = 1
+
+        } else {
+            document.querySelector('.time').innerHTML =
+                h + ':' + m + ':' + s + ":" + 0;
+
+        }
+        setTimeout(startTime, 1000);  // call every 1 second
+    }
+
+    function checkTime(i) {
+        if (i < 10) { i = "0" + i };
+        return i;
+    }
+</script>
+
+</html>
